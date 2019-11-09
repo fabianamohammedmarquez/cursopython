@@ -8,34 +8,54 @@ bd = Salao.tb
 
 def cadastrar():
     
-
-
-    nome = input("DIGITE")
-    nome = input("DIGITE")
-    nome = input("DIGITE")
-    nome = input("DIGITE")
+    nome = input("Nome do cliente: ")
+    servico = input("Serviço: ")
+    valor = input("Valor: ")
+    formaPagamento = input("Pagamento: ")
 
 
     bd.tb.insert_one(
-        
-           
+    
            {   
             'nome':nome,
-            'servico':servico,
+            'serviço':servico,
             'valor': valor,
-            'formaPagamento': pagamento
+            'formaPagamento': formaPagamento
            }
-        
     )
 
+def consultar():
+    nome = input('Digite o nome consultado: ') 
+    
+    Salao = MongoClient()
+
+    bd = Salao.tb
+    
+    for item in bd.tb.find({'nome': nome, 'serviço': servico, 'valor': valor, 'formaPagamento':formaPagamento}):
+        #print(item['nome'])
+        print(item['servico'])
+        print(item['valor'])
+        print(item['formaPagamento'])
+
+
+
 def alterar():
-    from pymongo import MongoClient
+    nome = input('Digite o nome que deseja mudar')
+   
+    Salao = MongoClient()
 
-    client = MongoClient()
+    bd = Salao.tb
 
-    bd = client.pessoa
+    bd.tb.update_one({'nome': nome }, #mudar
+                         {'$set':{'nome': nome}})  #
 
-    bd.pessoa.update_one({'nome': 'Wozniack'}, #mudar
-                         {'$set':{'nome': 'John', 'idade': 22}})  #
+    
+def delete():
+    nome = input('Digite o nome que deseja deletar')
+    Salao = MongoClient()
 
+    bd = Salao.tb
+
+    bd.tb.delete_one({'nome': nome})  #mudar
+    
     
